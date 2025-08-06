@@ -11,7 +11,7 @@ import toast from 'react-hot-toast';
 
 function Home() {    
   const { UserData,ServerUrl,SetUserData,getGeminiResponse }=useContext(UserDataContext)  
-  console.log("Kalapani",UserData)  
+  //console.log("Kalapani",UserData)  
   const [Listening,setListening]=useState(false) 
   const [UserText,setUserText]=useState("")  
   const [Ham,setHam]=useState(false)
@@ -23,7 +23,7 @@ function Home() {
   const Navigate=useNavigate()  
   const handleLogout=async()=>{
     try {     console.log("logging out")
-         const result=await axios.get(`${ServerUrl}/api/v1/Logout`,{withCredentials:true}) 
+         const result=await axios.get(`${ServerUrl}/api/auth/Logout`,{withCredentials:true}) 
          Navigate("/Signup")  
          SetUserData(null)   
          console.log("UserData is ",UserData)
@@ -46,28 +46,41 @@ function Home() {
       }
     }
   } 
-  const speak=(text)=>{
-    const utterence=new SpeechSynthesisUtterance(text)   
-    utterence.lang='hi-IN' ;   
-    const voices=window.speechSynthesis.getVoices()
-    const hindiVoice=voices.find(v=>v.lang==='hi-IN');
-    if(hindiVoice){
-      utterence.voice=hindiVoice
+  const speak = (text) => {
+  if (!text) return;
+  
+  const synth = window.speechSynthesis;
+  const utterance = new SpeechSynthesisUtterance(text);
+  utterance.lang = 'hi-IN';
+
+  const setVoiceAndSpeak = () => {
+    const voices = synth.getVoices();
+    const hindiVoice = voices.find(v => v.lang === 'hi-IN') || voices[0];
+    if (hindiVoice) {
+      utterance.voice = hindiVoice;
     }
-    isSpeakingRef.current=true
-    utterence.onend=()=>{ 
-      setAiText("")
-      isSpeakingRef.current=false 
-      setTimeout(()=>{
-        startRecognition();
-      },800);
-    } 
-    synth.cancel();
-    synth.speak(utterence)
-  }  
+    synth.speak(utterance);
+    isSpeakingRef.current = true;
+
+    utterance.onend = () => {
+      isSpeakingRef.current = false;
+      setAiText("");
+      setTimeout(() => startRecognition(), 800);
+    };
+  };
+
+  // Wait for voices if not loaded yet
+  if (synth.getVoices().length === 0) {
+    synth.onvoiceschanged = setVoiceAndSpeak;
+  } else {
+    setVoiceAndSpeak();
+  }
+};
+ 
   const handleCommand=(data)=>{
     const {type,userInput,response}=data 
-    speak(response); 
+    speak(response);  
+    console.log("user ne kya diya",userInput)
     
     if(type==='google_search'){
       const query=encodeURIComponent(userInput);
@@ -205,7 +218,7 @@ if (window.speechSynthesis.getVoices().length === 0) {
   },[])
 
   return (
-    <div className="w-full h-[100vh] bg-gradient-to-t from-black to-[#0a0a9bac] flex 
+    <div className="w-full h-[100vh] bg-gradient-to-t from-black to-[#02023d] flex 
      justify-center items-center flex-col gap-[15px] relative  overflow-hidden">    
        <AiOutlineMenu className='lg:hidden text-white absolute top-[20px] right-[20px] w-[25px] h-[25px]'
        onClick={()=>setHam(true)}/>  
@@ -258,8 +271,18 @@ if (window.speechSynthesis.getVoices().length === 0) {
      
      </div>  
      <h1 className='text-white text-[19px] font-semibold' >I'm {UserData?.AssistantName}</h1>
-      {AiText && <img src={userImg} className='w-[120px] h-[80px]'/>} 
-      {!AiText && <img src={aiImg} className='w-[120px] h-[80px]'/>} 
+      {AiText && (
+  <img 
+    src={userImg} 
+    className='w-[120px] h-[80px] opacity-80 mix-blend-screen drop-shadow-lg'
+  />
+)}
+{!AiText && (
+  <img 
+    src={aiImg} 
+    className='w-[120px] h-[80px]  mix-blend-screen drop-shadow-lg'
+  />
+)}
       <h1 className='text-white font-semibold'>{UserText?UserText:AiText?AiText:null}</h1>
     </div>
   )

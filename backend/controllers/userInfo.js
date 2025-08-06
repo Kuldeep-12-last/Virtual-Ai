@@ -19,8 +19,10 @@ exports.GetCurrentUser=async(req,res)=>{
        console.log("user found")
        return  res.status(200).json({
         success:true,
-        message:"user Found successfully"}) 
+        message:"user Found successfully"  ,
         user:currentUser
+    }) 
+        
     }  
     catch(err)
     {

@@ -5,7 +5,8 @@ export const UserDataContext=createContext()
 
 function UserContext({children}) {   
     const ServerUrl="http://localhost:4000"     
-    const [UserData,SetUserData]=useState(null)    
+    const [UserData,SetUserData]=useState(null)     
+    const [loadingUser, setLoadingUser] = useState(true); 
     const [FrontEndImage,setFrontEndImage]=useState(null) 
     const [BackEndImage,setBackEndImage]=useState(null)   
     const [SelectedImage,setSelectedImage]=useState(null)
@@ -15,10 +16,12 @@ function UserContext({children}) {
         try {
               const result=await axios.get(`${ServerUrl}/api/user/current`
                 ,{withCredentials:true})  
-              console.log(result.data)
-              SetUserData(result.data)
+              console.log("result data is ",result.data.user)
+              SetUserData(result.data.user)
         } catch (error) {
             console.log(error)
+        }finally{
+                   setLoadingUser(false);
         }
     }      
     const getGeminiResponse=async(command)=>{
@@ -37,7 +40,7 @@ function UserContext({children}) {
      const value={
       ServerUrl,UserData,SetUserData,FrontEndImage,
       setFrontEndImage,BackEndImage, setBackEndImage,
-      SelectedImage,setSelectedImage,getGeminiResponse
+      SelectedImage,setSelectedImage,getGeminiResponse,loadingUser
     }  
    
   return (

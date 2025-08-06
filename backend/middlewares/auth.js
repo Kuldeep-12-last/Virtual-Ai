@@ -19,7 +19,7 @@ exports.auth = (req, res, next) => {
     // 2. Verify token
     try {
       const payload = jwt.verify(token, process.env.JWT_SECRET);
-     // console.log("Decoded Payload:", payload); 
+      console.log("Decoded Payload:", payload); 
       console.log(payload.data)
 
       // ✅ This should match how you sign the token

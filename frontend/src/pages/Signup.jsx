@@ -23,7 +23,7 @@ function Signup() {
     SetError("");
     SetLoading(true);
     try {
-      const result = await axios.post(`${ServerUrl}/api/v1/Signup`, formData, {
+      const result = await axios.post(`${ServerUrl}/api/auth/Signup`, formData, {
         withCredentials: true,
       });
       console.log("result", result.config.data);

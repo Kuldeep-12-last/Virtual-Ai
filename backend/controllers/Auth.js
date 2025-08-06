@@ -55,7 +55,8 @@ exports.signup = async (req,res) => {
 
         return res.status(200).json({
             success:true,
-            message:'User Created Successfully',
+            message:'User Created Successfully', 
+            user:user
         });
 
     }
@@ -77,7 +78,7 @@ exports.login = async (req,res) => {
         //data fetch
         const {email, password} = req.body;
         //validation on email and password
-        console.log(email,password);
+        //console.log(email,password);
         if(!email || !password) {
             return res.status(400).json({
                 success:false,
@@ -87,7 +88,7 @@ exports.login = async (req,res) => {
 
         //check for registered user
         let user = await User.findOne({email});  
-        console.log("user is ",user)
+        //console.log("user is ",user)
         //if not a registered user
         if(!user) {
             return res.status(401).json({
@@ -102,9 +103,9 @@ exports.login = async (req,res) => {
         
         if( isMAtched) {
             //password match 
-            console.log("finding token")
+           // console.log("finding token")
                 const token=await GenerateToken(user._id)  
-                console.log("token :",token)
+             //   console.log("token :",token)
                res.cookie("token",token,{
                  httpOnly:true,
                  maxAge:2*24*60*60*1000,

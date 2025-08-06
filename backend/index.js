@@ -20,7 +20,7 @@ connect();
 
 const user=require("./routes/router") 
 const current=require("./routes/current")
-app.use("/api/v1", user);    
+app.use("/api/auth", user);    
 app.use("/api/user",current);  
 
 app.use((req,res)=>{

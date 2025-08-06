@@ -10,15 +10,19 @@ import Home from './pages/Home'
 import { UserDataContext } from './context/UserContext'
 
 function App() {   
-const { ServerUrl,UserData,SetUserData }=useContext(UserDataContext)   
+const { ServerUrl,UserData,SetUserData,loadingUser }=useContext(UserDataContext)     
+console.log("userdata is" ,UserData)   
+  if (loadingUser) {
+    return <h1 className="text-center mt-10 text-white">Loading...</h1>; 
+  }
   return (
     <>   
     <Routes> 
-      {/* <Route path='/' element={UserData?.assistantName&& UserData?.assistantImage ?<Home/>: <Navigate to={"/Customize"}/>}/>  */}
-      <Route path='/' element={<Home/>}/> 
-      {/* <Route path='/Signup' element={!UserData?<Signup/>:<Navigate to={"/"} />}/>   */}
-      <Route path='/Signup' element={<Signup/>}/>
-      <Route path='/Signin' element={!UserData?.assistantName?<Signin/>:<Navigate to={"/"}/>} /> 
+      <Route path='/' element={UserData?.AssistantName&& UserData?.AssistantImage ?<Home/>: <Navigate to={"/Customize"}/>}/> 
+      {/* <Route path='/' element={<Home/>}/>  */}
+      <Route path='/Signup' element={!UserData?<Signup/>:<Navigate to={"/"} />}/>  
+      {/* <Route path='/Signup' element={<Signup/>}/> */}
+      <Route path='/Signin' element={!UserData?.AssistantName?<Signin/>:<Navigate to={"/"}/>} /> 
       <Route path='/Customize' element={UserData?<Customize/>:<Navigate to={"/Signup"}/>} />
       <Route path='/Customize2' element={UserData?<Customize2/>:<Navigate to={"/Signup"}/>} />   
       {/* <Route path='/Customize' element={<Customize/>}/>  

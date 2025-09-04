@@ -30,7 +30,7 @@ function UserContext({children}) {
         console.log("result",result)
         return result.data
       } catch (error) {   
-        console.log("kuldeep")
+       
         console.log(error)
       }
     }

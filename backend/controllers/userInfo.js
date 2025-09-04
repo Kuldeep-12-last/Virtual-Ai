@@ -41,7 +41,8 @@ exports.updateAssistant=async(req,res)=>{
         
         let AssistantImage; 
         if(req.file){
-            AssistantImage=await UploadOnCloudinary(req.file.path)
+            AssistantImage=await UploadOnCloudinary(req.file.path)  
+            console.log("Assitant image is :",AssistantImage)
         } 
         else
         {

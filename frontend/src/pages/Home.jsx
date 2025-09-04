@@ -80,7 +80,7 @@ function Home() {
   const handleCommand=(data)=>{
     const {type,userInput,response}=data 
     speak(response);  
-    console.log("user ne kya diya",userInput)
+    //console.log("user ne kya diya",userInput)
     
     if(type==='google_search'){
       const query=encodeURIComponent(userInput);

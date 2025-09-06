@@ -4,7 +4,8 @@ import axios from "axios"; // ✅ Correct for React frontend
 export const UserDataContext=createContext()
 
 function UserContext({children}) {   
-    const ServerUrl="https://virtual-ai-backend.onrender.com"     
+const ServerUrl = "http://localhost:4000";
+   
     const [UserData,SetUserData]=useState(null)     
     const [loadingUser, setLoadingUser] = useState(true); 
     const [FrontEndImage,setFrontEndImage]=useState(null) 

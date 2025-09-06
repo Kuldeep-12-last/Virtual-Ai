@@ -8,7 +8,7 @@ require("dotenv").config();
 app.use(cookieParser())
 app.use(express.json())  
 app.use(cors({
-    origin:"http://localhost:5173" ,
+    origin:"https://virtual-ai-frontends.onrender.com" ,
     credentials:true
 }))
 const Port=process.env.PORT||4000;

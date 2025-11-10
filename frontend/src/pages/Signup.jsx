@@ -51,7 +51,23 @@ function Signup() {
     <div
       className="min-h-screen w-full bg-cover bg-center flex justify-center items-center p-4"
       style={{ backgroundImage: `url(${bg})` }}
-    >
+    >    
+   <div className="absolute top-4 right-4">  
+    <button
+    onClick={() => navigate("/Password")}
+    className="px-5 py-2  text-white font-semibold border-2 border-white rounded-full text-sm sm:text-base shadow-md hover:bg-white hover:text-black transition duration-300"
+  >
+    Create Password
+  </button>
+  <button
+    onClick={() => navigate("/About")}
+    className="px-5 py-2 text-white font-semibold border-2 border-white rounded-full text-sm sm:text-base shadow-md hover:bg-white hover:text-black transition duration-300"
+  >
+    About Us
+  </button>    
+  
+</div>
+
       <form
         onSubmit={HandleSignup}
         className="

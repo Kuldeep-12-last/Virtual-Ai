@@ -3,11 +3,13 @@ import toast, { Toaster } from 'react-hot-toast';
 import { useContext } from 'react'
 import { Routes,Route, Navigate } from 'react-router-dom'
 import Signup from './pages/Signup'
-import Signin from './pages/Signin'
+import Signin from './pages/Signin' 
+import About from "./pages/About";
 import Customize from './pages/Customize' 
 import Customize2 from './pages/Customize2'
 import Home from './pages/Home'
 import { UserDataContext } from './context/UserContext'
+import Password from './pages/Password';
 
 function App() {   
 const { ServerUrl,UserData,SetUserData,loadingUser }=useContext(UserDataContext)     
@@ -25,6 +27,8 @@ console.log("userdata is" ,UserData)
       <Route path='/Signin' element={!UserData?.AssistantName?<Signin/>:<Navigate to={"/"}/>} /> 
       <Route path='/Customize' element={UserData?<Customize/>:<Navigate to={"/Signup"}/>} />
       <Route path='/Customize2' element={UserData?<Customize2/>:<Navigate to={"/Signup"}/>} />   
+      <Route path="/About" element={<About />} />  
+      <Route path="/Password" element={<Password />} /> 
       {/* <Route path='/Customize' element={<Customize/>}/>  
       <Route path='/Customize2' element={<Customize2/>}/>  */} 
       

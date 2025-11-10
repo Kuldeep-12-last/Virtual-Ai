@@ -102,7 +102,13 @@ exports.askToAssistant=async(req,res)=>{
                     userInput: gemResult.userInput,
                     response:`today is ${moment().format
                         ("dddd") }`
-                });
+                }); 
+            //  case "open_to_do"||"open_to_do_list":
+            //     return res.json({
+            //          type,
+            //          userInput: gemResult.userInput,
+            //          response: "https://app.todoist.com/app/inbox"   // or any todo list app you prefer
+            //     });
              case 'get_month' :
                 return res.json({
                     type,
@@ -117,7 +123,10 @@ exports.askToAssistant=async(req,res)=>{
                 case "calculator_open" :
                 case "instagram_open" : 
                 case "facebook_open" : 
-                case "weather_show" : 
+                case "weather_show" :  
+                case "open_to_do" :
+                case "open_to_do_list" : 
+                case "open_chatgpt" :
                 return res.json({
                     type,
                     userInput:gemResult.userInput ,

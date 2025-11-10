@@ -1,8 +1,6 @@
 const axios = require("axios");
-require("dotenv").config();
-
+require("dotenv").config(); 
 const geminiResponse = async (command,AssistantName,userName) => { 
-    
   try {
     const apiUrl = process.env.GEMINI_API_URL; 
     const prompt=`You are a virtual assistant named ${AssistantName} created by 
@@ -39,7 +37,9 @@ const geminiResponse = async (command,AssistantName,userName) => {
     -"get_time" : if user asks for current time.  
     -"get_date" : if user asks for today's date. 
     -"get_day" : if user asks what day it is. 
-    -"get_month" : if user asks for current month.     
+    -"get_month" : if user asks for current month.    
+    -"open_chatgpt" : if user wants to open chatgpt.
+    -"open_to_do" : if user wants to open todo list. 
 
     Important: 
     -Use "{author name}" agar koi puche tume kisne banaya 
